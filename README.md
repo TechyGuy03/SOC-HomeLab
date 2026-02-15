@@ -1,219 +1,221 @@
-# SOC Home Lab – Wazuh Deployment
+# SOC HomeLab
 
 ## Overview
 
-This repository documents the design, deployment, and refinement of a SOC-focused home lab environment.
+This repository documents my SOC-focused homelab designed to develop practical skills in:
 
-The lab is designed to develop practical skills in:
+• Security Monitoring  
+• Detection Engineering  
+• Log Analysis  
+• Incident Investigation  
+• Infrastructure Troubleshooting  
 
-- Security monitoring  
-- Threat detection  
-- Log analysis  
-- Network visibility  
-- Incident investigation workflows  
+This lab is not built for complexity for the sake of complexity.
 
-Rather than pursuing unnecessary complexity, the environment prioritizes clarity, segmentation, and observability.
+It is built for **visibility, understanding, and failure analysis**.
 
----
-
-## Objectives
-
-This lab was built to:
-
-- Simulate realistic security monitoring scenarios  
-- Centralize logs across infrastructure components  
-- Provide visibility into host and network activity  
-- Support detection engineering experimentation  
-- Reinforce structured troubleshooting workflows  
+The primary objective is to simulate realistic defensive security workflows while maintaining full control over the infrastructure stack.
 
 ---
 
-## Environment Architecture
+## Architecture Diagram
 
-Core components of the lab:
-
-- **Firewall / Network Edge:** pfSense  
-- **Network Visibility / IDS:** Suricata  
-- **Compute Platform:** ProxMox  
-- **Security Platform:** Wazuh  
-- **Log Sources:**  
-  - Firewall logs  
-  - IDS alerts  
-  - Linux system events  
-  - Endpoint telemetry  
-
----
-
-## Key Components
-
-### pfSense
-
-Acts as the network perimeter and traffic control point.
-
-Responsibilities include:
-
-- Network segmentation  
-- Firewall policy enforcement  
-- DNS resolution and host overrides  
-- Syslog forwarding  
-
----
-
-### Suricata
-
-Provides network-level detection and inspection.
-
-Responsibilities include:
-
-- Traffic inspection  
-- Signature-based detection  
-- Alert generation  
-
----
-
-### ProxMox Virtual Enviornment 9.1.1
-
-Serves as the virtualization platform hosting lab workloads.
-
-Responsibilities include:
-
-- Virtual machine management  
-- Storage experimentation  
-- Isolation of vulnerable workloads  
-
----
-
-### Wazuh
-
-Functions as the centralized security monitoring and analysis platform.
-
-Responsibilities include:
-
-- Log aggregation  
-- Event correlation  
-- Agent-based telemetry  
-- Detection and alerting  
-
----
-
-## TLS / Certificate Implementation
-
-HTTPS/TLS was implemented to mirror production-like security controls.
-
-Key elements:
-
-- Let’s Encrypt certificates  
-- DNS-01 validation via Cloudflare  
-- Internal DNS resolution using pfSense host overrides  
-- LAN-only access design  
-
-This ensures:
-
-- Encrypted communications  
-- Proper hostname validation  
-- Elimination of self-signed certificate warnings  
-
----
-
-## Certificate Issuance Workflow
-
-Certificates are issued using the pfSense ACME package with DNS validation.
-
-### Example Configuration Steps
-
-### 1. Cloudflare API Token
-
-A Cloudflare API token was created with the following permissions:
-
-- Zone → DNS → Edit  
-- Zone → Zone → Read  
-
----
-
-### 2. ACME Account Key Creation
-
-pfSense → Services → ACME → Account Keys
-
-```bash
-Generate New Account Key
-Register ACME Account Key
+```mermaid
+flowchart LR
+    Internet --> Modem --> pfSense --> Switch
+    Switch --> Endpoints --> Agents --> Wazuh
+    Switch --> Proxmox --> VMs --> LabWorkloads
+    Wazuh --> Indexer
+    Wazuh --> Dashboard
 ```
 
 ---
 
-### 3. Certificate Creation
+## Lab Design Philosophy
 
-pfSense → Services → ACME → Certificates
+This environment is structured around several core principles:
 
-Subject Alternative Names (SAN):
+### Visibility First
+Every component is selected to maximize telemetry and behavioral understanding rather than raw performance.
 
-```bash
-techysec.com
-*.techysec.com
+### Failure as a Learning Tool
+Misconfigurations, outages, certificate issues, agent failures, and connectivity problems are treated as intentional learning opportunities.
+
+### Detection-Oriented Thinking
+The lab is designed to reinforce how attackers behave, how logs reflect activity, and how detections are formed.
+
+---
+
+## Core Technologies
+
+### Firewall / Network Edge
+**pfSense**
+
+Used for:
+
+• Network segmentation  
+• DNS configuration  
+• TLS / certificate experiments  
+• Traffic inspection  
+• Security control testing  
+
+---
+
+### Virtualization Platform
+**Proxmox**
+
+Used for:
+
+• VM lifecycle management  
+• Mixed workload simulation  
+• Security tooling deployment  
+• Snapshot / rollback testing  
+• Failure scenario creation  
+
+---
+
+### Security Monitoring Platform
+**Wazuh**
+
+Used for:
+
+• Agent-based telemetry collection  
+• Log aggregation  
+• Detection experimentation  
+• Security event analysis  
+• Dashboard visualization  
+
+---
+
+## Environment Components
+
+### Endpoints
+Mixed Windows and Linux systems used to generate realistic telemetry.
+
+Examples:
+
+• Workstation simulations  
+• Test servers  
+• Intentionally vulnerable systems  
+• Logging experimentation targets  
+
+---
+
+### Agents
+Wazuh agents deployed across lab systems to simulate enterprise telemetry pipelines.
+
+Focus areas:
+
+• Agent enrollment behavior  
+• Version compatibility issues  
+• Connectivity troubleshooting  
+• Log source validation  
+
+---
+
+### Security Stack
+Wazuh Manager  
+Wazuh Indexer  
+Wazuh Dashboard  
+
+---
+
+## Key Learning Areas
+
+### Security Monitoring
+Understanding:
+
+• Event generation  
+• Log pipelines  
+• Agent telemetry behavior  
+• Detection surfaces  
+
+---
+
+### Detection Engineering
+Exploring:
+
+• Behavioral patterns  
+• Suspicious activity modeling  
+• False positive analysis  
+• Detection strategy design  
+
+---
+
+### Log Analysis
+Practicing:
+
+• Event correlation  
+• Investigation workflows  
+• Signal vs noise separation  
+• Data interpretation  
+
+---
+
+### Infrastructure Troubleshooting
+Real scenarios encountered:
+
+• TLS / certificate trust failures  
+• Agent version mismatches  
+• Service connectivity issues  
+• DNS resolution problems  
+• Port binding conflicts  
+• Firewall rule misconfigurations  
+
+---
+
+## Repository Structure
+
+```
+SOC-HomeLab/
+│
+├── docs/
+│   ├── wazuh.md
+│   ├── proxmox.md
+│   ├── network.md
+│   └── troubleshooting.md
+│
+├── diagrams/
+│
+└── README.md
 ```
 
-Validation Method:
+---
 
-```bash
-DNS-Cloudflare
-```
+## Documentation Scope
+
+This repository captures:
+
+• Build decisions  
+• Configuration changes  
+• Troubleshooting scenarios  
+• Root cause analysis  
+• Lessons learned  
+
+The emphasis is on **thinking like a security practitioner**, not simply documenting successful setups.
 
 ---
 
-### 4. DNS Validation Process
+## Why This Matters
 
-During issuance, ACME performs DNS challenges:
+Modern SOC / Detection roles require more than tool familiarity.
 
-```bash
-_acme-challenge.techysec.com
-```
+They require:
 
-TXT records are automatically created and removed.
+• Systems thinking  
+• Troubleshooting discipline  
+• Pattern recognition  
+• Failure analysis  
+• Clear technical communication  
 
----
-
-## Security Design Considerations
-
-This lab intentionally incorporates:
-
-- Network segmentation  
-- Principle of least privilege  
-- Encrypted management interfaces  
-- Controlled service exposure  
-- Realistic failure and troubleshooting scenarios  
+This lab exists to build those skills deliberately.
 
 ---
 
-## Lessons Learned
+## Disclaimer
 
-Key practical concepts reinforced:
+This repository reflects a personal lab environment created for educational, research, and skills development purposes.
 
-- Certificate trust vs encryption  
-- DNS vs IP-based access implications  
-- TLS hostname validation  
-- Agent-manager compatibility  
-- Service binding vs accessibility  
-- Structured troubleshooting methodology  
+Configurations and architectural decisions may not represent production best practices.
 
----
-
-## Purpose of This Repository
-
-This repository serves as:
-
-- A technical knowledge base  
-- A troubleshooting reference  
-- A demonstration of SOC / detection skill development  
-- A living document of iterative lab refinement  
-
----
-
-## Future Enhancements
-
-Planned improvements:
-
-- Reverse proxy implementation  
-- Additional log source integrations
-- Custom detection rule development  
-- Incident simulation scenarios  
-- Expanded endpoint coverage  
+All referenced systems are privately owned lab resources.
