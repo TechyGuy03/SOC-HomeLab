@@ -2,19 +2,19 @@
 
 ## Overview
 
-This repository documents my SOC-focused homelab designed to develop practical skills in:
+This repository documents a SOC-focused homelab engineered to develop practical capabilities in:
 
 • Security Monitoring  
 • Detection Engineering  
-• Log Analysis  
+• Log Pipeline Analysis  
 • Incident Investigation  
-• Infrastructure Troubleshooting  
+• Infrastructure & Telemetry Troubleshooting  
 
-This lab is not built for complexity for the sake of complexity.
+This environment is not designed for complexity for its own sake.
 
-It is built for **visibility, understanding, and failure analysis**.
+It is intentionally built for **visibility, behavioral understanding, and failure analysis**.
 
-The primary objective is to simulate realistic defensive security workflows while maintaining full control over the infrastructure stack.
+The primary objective is to simulate realistic defensive security workflows while maintaining full control over the infrastructure, data sources, and telemetry flows.
 
 ---
 
@@ -33,140 +33,158 @@ flowchart LR
 
 ## Lab Design Philosophy
 
-This environment is structured around several core principles:
+This environment is structured around several guiding principles:
 
-### Visibility First
-Every component is selected to maximize telemetry and behavioral understanding rather than raw performance.
+### Visibility Over Complexity
 
-### Failure as a Learning Tool
-Misconfigurations, outages, certificate issues, agent failures, and connectivity problems are treated as intentional learning opportunities.
+Technology choices prioritize telemetry depth, event clarity, and behavioral insight rather than raw performance metrics.
+
+---
+
+### Failure-Driven Learning
+
+Misconfigurations, outages, certificate issues, agent failures, and ingestion problems are treated as deliberate learning surfaces.
+
+Understanding **why systems break** is considered as valuable as understanding **how systems work**.
+
+---
 
 ### Detection-Oriented Thinking
-The lab is designed to reinforce how attackers behave, how logs reflect activity, and how detections are formed.
+
+The lab reinforces how attacker behavior translates into logs, how signals emerge from noise, and how detections are formed from observable system activity.
 
 ---
 
 ## Core Technologies
 
-### Firewall / Network Edge
+### Firewall / Network Edge  
 **pfSense**
 
 Used for:
 
-• Network segmentation  
-• DNS configuration  
-• TLS / certificate experiments  
-• Traffic inspection  
-• Security control testing  
+• Network segmentation and control testing  
+• Traffic visibility and inspection  
+• DNS and resolution experiments  
+• TLS / certificate trust scenarios  
+• Security control simulation  
 
 ---
 
-### Virtualization Platform
+### Virtualization Platform  
 **Proxmox**
 
 Used for:
 
-• VM lifecycle management  
-• Mixed workload simulation  
+• Workload simulation  
+• Controlled failure scenarios  
 • Security tooling deployment  
 • Snapshot / rollback testing  
-• Failure scenario creation  
+• Mixed OS telemetry generation  
 
 ---
 
-### Security Monitoring Platform
+### Security Monitoring Platform  
 **Wazuh**
 
 Used for:
 
-• Agent-based telemetry collection  
-• Log aggregation  
+• Agent based telemetry collection  
+• Log aggregation and normalization  
 • Detection experimentation  
 • Security event analysis  
-• Dashboard visualization  
+• Pipeline and ingestion validation  
 
 ---
 
 ## Environment Components
 
 ### Endpoints
-Mixed Windows and Linux systems used to generate realistic telemetry.
 
-Examples:
+Mixed Windows and Linux systems used to generate realistic operational telemetry.
+
+Examples include:
 
 • Workstation simulations  
 • Test servers  
-• Intentionally vulnerable systems  
-• Logging experimentation targets  
+• Intentionally vulnerable workloads  
+• Logging and detection experiments  
 
 ---
 
-### Agents
-Wazuh agents deployed across lab systems to simulate enterprise telemetry pipelines.
+### Agents & Telemetry Sources
 
-Focus areas:
+Wazuh agents deployed across lab systems to simulate enterprise-style telemetry pipelines.
 
-• Agent enrollment behavior  
-• Version compatibility issues  
-• Connectivity troubleshooting  
-• Log source validation  
+Focus areas include:
+
+• Enrollment and registration behavior  
+• Connectivity and trust validation  
+• Version compatibility analysis  
+• Log source integrity verification  
 
 ---
 
 ### Security Stack
-Wazuh Manager  
-Wazuh Indexer  
-Wazuh Dashboard  
+
+• Wazuh Manager  
+• Wazuh Indexer  
+• Wazuh Dashboard  
 
 ---
 
-## Key Learning Areas
+## Key Learning Domains
 
-### Security Monitoring
-Understanding:
+### Security Monitoring & Telemetry
 
-• Event generation  
-• Log pipelines  
-• Agent telemetry behavior  
-• Detection surfaces  
+Exploring:
+
+• Event generation patterns  
+• Log flow behavior  
+• Telemetry visibility gaps  
+• Signal reliability  
 
 ---
 
 ### Detection Engineering
-Exploring:
 
-• Behavioral patterns  
+Developing understanding of:
+
+• Behavioral detection concepts  
 • Suspicious activity modeling  
-• False positive analysis  
+• False positive dynamics  
 • Detection strategy design  
 
 ---
 
-### Log Analysis
+### Log & Event Analysis
+
 Practicing:
 
-• Event correlation  
-• Investigation workflows  
+• Event correlation workflows  
+• Investigation techniques  
 • Signal vs noise separation  
-• Data interpretation  
+• Data interpretation and context building  
 
 ---
 
-### Infrastructure Troubleshooting
-Real scenarios encountered:
+### Infrastructure & Pipeline Troubleshooting
+
+Real-world scenarios encountered and analyzed:
 
 • TLS / certificate trust failures  
 • Agent version mismatches  
 • Service connectivity issues  
-• DNS resolution problems  
+• DNS resolution anomalies  
 • Port binding conflicts  
-• Firewall rule misconfigurations  
+• Firewall rule behavior  
+• Log ingestion inconsistencies  
+• Telemetry visibility gaps  
 
 ---
 
 ## Repository Structure
 
-```
+```bash
 SOC-HomeLab/
 │
 ├── docs/
@@ -186,36 +204,36 @@ SOC-HomeLab/
 
 This repository captures:
 
-• Build decisions  
-• Configuration changes  
-• Troubleshooting scenarios  
+• Architectural decisions  
+• Configuration strategies  
+• Troubleshooting investigations  
 • Root cause analysis  
 • Lessons learned  
 
-The emphasis is on **thinking like a security practitioner**, not simply documenting successful setups.
+The emphasis is on **operational security thinking and systems analysis**, rather than documenting only successful configurations.
 
 ---
 
-## Why This Matters
+## Why This Lab Exists
 
-Modern SOC / Detection roles require more than tool familiarity.
+Modern SOC and Detection roles require more than tool familiarity.
 
-They require:
+They demand:
 
-• Systems thinking  
+• Systems-level thinking  
+• Telemetry interpretation skills  
 • Troubleshooting discipline  
-• Pattern recognition  
-• Failure analysis  
+• Behavioral analysis mindset  
 • Clear technical communication  
 
-This lab exists to build those skills deliberately.
+This lab is designed to deliberately develop those competencies.
 
 ---
 
 ## Disclaimer
 
-This repository reflects a personal lab environment created for educational, research, and skills development purposes.
+This repository reflects a privately owned lab environment created for educational, research, and professional skills development purposes.
 
-Configurations and architectural decisions may not represent production best practices.
+Configurations and architectural decisions are optimized for experimentation and learning, and may not represent production best practices.
 
-All referenced systems are privately owned lab resources.
+All referenced systems are controlled lab resources.
